@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
+import { href, Link } from "react-router";
 
 const ROLES = [
   "Full-Stack Developer",
   "UI/UX Enthusiast",
   "Problem Solver",
-  "CS Student",
+  "IS Student",
 ];
 
 export function Welcome() {
@@ -86,7 +87,7 @@ export function Welcome() {
 
         {/* Name */}
         <h1 className="relative text-5xl sm:text-7xl font-bold tracking-tight text-slate-50 mb-4">
-          Your Name
+          Ashley Graham
         </h1>
 
         {/* Animated role */}
@@ -103,9 +104,9 @@ export function Welcome() {
 
         {/* Bio */}
         <p className="relative max-w-xl text-slate-400 text-base sm:text-lg leading-relaxed mb-10">
-          I'm a computer science student passionate about building clean,
-          thoughtful software. I love turning complex problems into simple,
-          elegant experiences.
+          I'm an information science student passionate about creating beautiful,
+          clean, and functional web experiences — with a focus on making them
+          as intuitive as they are visually compelling.
         </p>
 
         {/* CTAs */}
@@ -191,14 +192,16 @@ export function Welcome() {
         <div className="grid sm:grid-cols-2 gap-6">
           {[
             {
-              title: "Project One",
+              title: "Ashley's Blog",
               desc: "A brief description of what this project does and the problem it solves.",
-              tags: ["React", "Node.js"],
+              tags: ["Astro", "?"],
+              href: "https://ashleys-blog.netlify.app/",
             },
             {
-              title: "Project Two",
+              title: "Farmer's Market",
               desc: "A brief description of what this project does and the problem it solves.",
-              tags: ["Python", "SQL"],
+              tags: ["JavaScript", "SQL"],
+              href: "",
             },
           ].map((project) => (
             <div
@@ -207,16 +210,20 @@ export function Welcome() {
             >
               <div className="flex items-start justify-between mb-3">
                 <h3 className="font-semibold text-slate-100">{project.title}</h3>
-                <svg
-                  className="w-4 h-4 text-slate-600 group-hover:text-indigo-400 transition-colors duration-200 mt-0.5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  aria-hidden="true"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
+                {project.href && (
+                  <a href={project.href} target="_blank" rel="noopener noreferrer">
+                    <svg
+                      className="w-4 h-4 text-slate-600 group-hover:text-indigo-400 transition-colors duration-200 mt-0.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      aria-hidden="true"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                )}
               </div>
               <p className="text-slate-400 text-sm leading-relaxed mb-4">{project.desc}</p>
               <div className="flex gap-2 flex-wrap">
@@ -261,7 +268,7 @@ export function Welcome() {
 
       {/* Footer */}
       <footer className="text-center py-8 text-slate-600 text-xs border-t border-slate-800/60">
-        Built with Next.js & Tailwind CSS
+        Built with React Router & Tailwind CSS
       </footer>
     </main>
   );
