@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { href, Link } from "react-router";
 
 const ROLES = [
-  "Full-Stack Developer",
+  "Aspiring Developer",
   "UI/UX Enthusiast",
   "Problem Solver",
   "IS Student",
@@ -54,7 +53,7 @@ export function Welcome() {
           Portfolio
         </span>
         <ul className="flex gap-8 text-sm text-slate-400">
-          {["About", "Projects", "Skills", "Contact"].map((item) => (
+          {["About", "Projects", "Essays", "Skills", "Contact"].map((item) => (
             <li key={item}>
               <a
                 href={`#${item.toLowerCase()}`}
@@ -82,7 +81,7 @@ export function Welcome() {
 
         {/* Eyebrow */}
         <p className="relative text-indigo-400 text-sm font-medium tracking-widest uppercase mb-6">
-          Hello, world —
+          Hello, world
         </p>
 
         {/* Name */}
@@ -165,8 +164,8 @@ export function Welcome() {
         <div className="flex flex-wrap gap-3">
           {[
             "JavaScript", "TypeScript", "React", "Next.js",
-            "Node.js", "Python", "Tailwind CSS", "Git",
-            "SQL", "REST APIs", "Figma", "Linux",
+            "Node.js", "HTML/CSS", "Tailwind CSS", "Git",
+            "SQL", "Figma", 
           ].map((skill) => (
             <span
               key={skill}
@@ -194,7 +193,7 @@ export function Welcome() {
             {
               title: "Ashley's Blog",
               desc: "A brief description of what this project does and the problem it solves.",
-              tags: ["Astro", "?"],
+              tags: ["Astro", "Islands Architecture"],
               href: "https://ashleys-blog.netlify.app/",
             },
             {
@@ -228,6 +227,69 @@ export function Welcome() {
               <p className="text-slate-400 text-sm leading-relaxed mb-4">{project.desc}</p>
               <div className="flex gap-2 flex-wrap">
                 {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs px-2.5 py-1 rounded-md bg-indigo-950 text-indigo-300 border border-indigo-900"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Essays */}
+      <section
+        id="essays"
+        className="px-6 py-20 max-w-4xl mx-auto"
+      >
+        <p className="text-indigo-400 text-xs font-semibold tracking-widest uppercase mb-3">
+          My writing
+        </p>
+        <h2 className="text-2xl font-semibold text-slate-100 mb-10">
+          Essays
+        </h2>
+        <div className="grid sm:grid-cols-2 gap-6">
+          {[
+            {
+              title: "Biography and Career Goals",
+              desc: "My background, goals, and path toward a career in full-stack web development.",
+              tags: ["BSIS Senior Capstone"],
+              href: "/essays/biography-and-career-goals",
+            },
+            {
+              title: "Database Implementation Plan",
+              desc: "A project management plan for developing a software-tracking database at the University of South Florida.",
+              tags: ["BSIS Senior Capstone"],
+              href: "/essays/project-management-plan",
+            },
+          ].map((essay) => (
+            <div
+              key={essay.title}
+              className="p-6 rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-900/50 transition-colors duration-200 group"
+            >
+              <div className="flex items-start justify-between mb-3">
+                <h3 className="font-semibold text-slate-100">{essay.title}</h3>
+                {essay.href && (
+                  <a href={essay.href} target="_blank" rel="noopener noreferrer">
+                    <svg
+                      className="w-4 h-4 text-slate-600 hover:text-indigo-400 transition-colors duration-200 mt-0.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                      aria-hidden="true"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                )}
+              </div>
+              <p className="text-slate-400 text-sm leading-relaxed mb-4">{essay.desc}</p>
+              <div className="flex gap-2 flex-wrap">
+                {essay.tags.map((tag) => (
                   <span
                     key={tag}
                     className="text-xs px-2.5 py-1 rounded-md bg-indigo-950 text-indigo-300 border border-indigo-900"
