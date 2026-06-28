@@ -1,89 +1,270 @@
-import logoDark from "./logo-dark.svg";
-import logoLight from "./logo-light.svg";
+import { useEffect, useState } from "react";
+
+const ROLES = [
+  "Full-Stack Developer",
+  "UI/UX Enthusiast",
+  "Problem Solver",
+  "CS Student",
+];
 
 export function Welcome() {
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [displayed, setDisplayed] = useState("");
+  const [deleting, setDeleting] = useState(false);
+  const [showCursor, setShowCursor] = useState(true);
+
+  // Typewriter effect
+  useEffect(() => {
+    const target = ROLES[roleIndex];
+
+    if (!deleting && displayed.length < target.length) {
+      const t = setTimeout(() => setDisplayed(target.slice(0, displayed.length + 1)), 80);
+      return () => clearTimeout(t);
+    }
+
+    if (!deleting && displayed.length === target.length) {
+      const t = setTimeout(() => setDeleting(true), 1800);
+      return () => clearTimeout(t);
+    }
+
+    if (deleting && displayed.length > 0) {
+      const t = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 45);
+      return () => clearTimeout(t);
+    }
+
+    if (deleting && displayed.length === 0) {
+      setDeleting(false);
+      setRoleIndex((i) => (i + 1) % ROLES.length);
+    }
+  }, [displayed, deleting, roleIndex]);
+
+  // Cursor blink
+  useEffect(() => {
+    const t = setInterval(() => setShowCursor((c) => !c), 530);
+    return () => clearInterval(t);
+  }, []);
+
   return (
-    <main className="flex items-center justify-center pt-16 pb-4">
-      <div className="flex-1 flex flex-col items-center gap-16 min-h-0">
-        <header className="flex flex-col items-center gap-9">
-          <div className="w-[500px] max-w-[100vw] p-4">
-            <img
-              src={logoLight}
-              alt="React Router"
-              className="block w-full dark:hidden"
-            />
-            <img
-              src={logoDark}
-              alt="React Router"
-              className="hidden w-full dark:block"
-            />
-          </div>
-        </header>
-        <div className="max-w-[300px] w-full space-y-6 px-4">
-          <nav className="rounded-3xl border border-gray-200 p-6 dark:border-gray-700 space-y-4">
-            <p className="leading-6 text-gray-700 dark:text-gray-200 text-center">
-              What&apos;s next?
-            </p>
-            <ul>
-              {resources.map(({ href, text, icon }) => (
-                <li key={href}>
-                  <a
-                    className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
-                    href={href}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {icon}
-                    {text}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+    <main className="min-h-screen bg-slate-950 text-slate-100 font-sans">
+
+      {/* Nav */}
+      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-5 border-b border-slate-800/60 backdrop-blur-sm bg-slate-950/80">
+        <span className="text-sm font-semibold tracking-widest text-indigo-400 uppercase">
+          Portfolio
+        </span>
+        <ul className="flex gap-8 text-sm text-slate-400">
+          {["About", "Projects", "Skills", "Contact"].map((item) => (
+            <li key={item}>
+              <a
+                href={`#${item.toLowerCase()}`}
+                className="hover:text-slate-100 transition-colors duration-200"
+              >
+                {item}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      {/* Hero */}
+      <section
+        id="about"
+        className="relative flex flex-col items-center justify-center min-h-screen px-6 pt-24 pb-16 text-center overflow-hidden"
+      >
+        {/* Background glow */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          aria-hidden="true"
+        >
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-indigo-600/10 blur-3xl animate-pulse" />
         </div>
-      </div>
+
+        {/* Eyebrow */}
+        <p className="relative text-indigo-400 text-sm font-medium tracking-widest uppercase mb-6">
+          Hello, world —
+        </p>
+
+        {/* Name */}
+        <h1 className="relative text-5xl sm:text-7xl font-bold tracking-tight text-slate-50 mb-4">
+          Your Name
+        </h1>
+
+        {/* Animated role */}
+        <div className="relative h-10 flex items-center justify-center mb-8">
+          <span className="text-xl sm:text-2xl text-indigo-300 font-light">
+            {displayed}
+            <span
+              className={`inline-block w-0.5 h-6 bg-indigo-400 ml-0.5 align-middle transition-opacity duration-100 ${
+                showCursor ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          </span>
+        </div>
+
+        {/* Bio */}
+        <p className="relative max-w-xl text-slate-400 text-base sm:text-lg leading-relaxed mb-10">
+          I'm a computer science student passionate about building clean,
+          thoughtful software. I love turning complex problems into simple,
+          elegant experiences.
+        </p>
+
+        {/* CTAs */}
+        <div className="relative flex flex-col sm:flex-row gap-4">
+          <a
+            href="#projects"
+            className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition-colors duration-200"
+          >
+            View my work
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+              aria-hidden="true"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+          <a
+            href="#contact"
+            className="inline-flex items-center justify-center px-7 py-3 rounded-lg border border-slate-700 hover:border-slate-500 text-slate-300 hover:text-slate-100 text-sm font-medium transition-colors duration-200"
+          >
+            Get in touch
+          </a>
+        </div>
+
+        {/* Scroll hint */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+          <span className="text-xs tracking-widest uppercase text-slate-500">Scroll</span>
+          <svg
+            className="w-4 h-4 text-slate-500 animate-bounce"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+            aria-hidden="true"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </section>
+
+      {/* Skills snapshot */}
+      <section
+        id="skills"
+        className="px-6 py-20 max-w-4xl mx-auto"
+      >
+        <p className="text-indigo-400 text-xs font-semibold tracking-widest uppercase mb-3">
+          What I work with
+        </p>
+        <h2 className="text-2xl font-semibold text-slate-100 mb-10">
+          Skills & tools
+        </h2>
+        <div className="flex flex-wrap gap-3">
+          {[
+            "JavaScript", "TypeScript", "React", "Next.js",
+            "Node.js", "Python", "Tailwind CSS", "Git",
+            "SQL", "REST APIs", "Figma", "Linux",
+          ].map((skill) => (
+            <span
+              key={skill}
+              className="px-4 py-2 rounded-full border border-slate-700 text-slate-300 text-sm hover:border-indigo-500 hover:text-indigo-300 transition-colors duration-200 cursor-default"
+            >
+              {skill}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      {/* Projects placeholder */}
+      <section
+        id="projects"
+        className="px-6 py-20 max-w-4xl mx-auto"
+      >
+        <p className="text-indigo-400 text-xs font-semibold tracking-widest uppercase mb-3">
+          Things I've built
+        </p>
+        <h2 className="text-2xl font-semibold text-slate-100 mb-10">
+          Projects
+        </h2>
+        <div className="grid sm:grid-cols-2 gap-6">
+          {[
+            {
+              title: "Project One",
+              desc: "A brief description of what this project does and the problem it solves.",
+              tags: ["React", "Node.js"],
+            },
+            {
+              title: "Project Two",
+              desc: "A brief description of what this project does and the problem it solves.",
+              tags: ["Python", "SQL"],
+            },
+          ].map((project) => (
+            <div
+              key={project.title}
+              className="p-6 rounded-xl border border-slate-800 hover:border-slate-700 bg-slate-900/50 transition-colors duration-200 group"
+            >
+              <div className="flex items-start justify-between mb-3">
+                <h3 className="font-semibold text-slate-100">{project.title}</h3>
+                <svg
+                  className="w-4 h-4 text-slate-600 group-hover:text-indigo-400 transition-colors duration-200 mt-0.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </div>
+              <p className="text-slate-400 text-sm leading-relaxed mb-4">{project.desc}</p>
+              <div className="flex gap-2 flex-wrap">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs px-2.5 py-1 rounded-md bg-indigo-950 text-indigo-300 border border-indigo-900"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+      
+      {/* Contact */}
+      <section
+        id="contact"
+        className="px-6 py-20 max-w-4xl mx-auto"
+      >
+        <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-10 text-center">
+          <p className="text-indigo-400 text-xs font-semibold tracking-widest uppercase mb-3">
+            Let's connect
+          </p>
+          <h2 className="text-2xl font-semibold text-slate-100 mb-3">
+            Get in touch
+          </h2>
+          <p className="text-slate-400 text-sm max-w-sm mx-auto mb-8 leading-relaxed">
+            Whether it's an opportunity, a question, or just to say hi —
+            my inbox is open.
+          </p>
+          <a
+            href="mailto:you@example.com"
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition-colors duration-200"
+          >
+            Say hello
+          </a>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="text-center py-8 text-slate-600 text-xs border-t border-slate-800/60">
+        Built with Next.js & Tailwind CSS
+      </footer>
     </main>
   );
 }
 
-const resources = [
-  {
-    href: "https://reactrouter.com/docs",
-    text: "React Router Docs",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-        className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300"
-      >
-        <path
-          d="M9.99981 10.0751V9.99992M17.4688 17.4688C15.889 19.0485 11.2645 16.9853 7.13958 12.8604C3.01467 8.73546 0.951405 4.11091 2.53116 2.53116C4.11091 0.951405 8.73546 3.01467 12.8604 7.13958C16.9853 11.2645 19.0485 15.889 17.4688 17.4688ZM2.53132 17.4688C0.951566 15.8891 3.01483 11.2645 7.13974 7.13963C11.2647 3.01471 15.8892 0.951453 17.469 2.53121C19.0487 4.11096 16.9854 8.73551 12.8605 12.8604C8.73562 16.9853 4.11107 19.0486 2.53132 17.4688Z"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    href: "https://rmx.as/discord",
-    text: "Join Discord",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="20"
-        viewBox="0 0 24 20"
-        fill="none"
-        className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300"
-      >
-        <path
-          d="M15.0686 1.25995L14.5477 1.17423L14.2913 1.63578C14.1754 1.84439 14.0545 2.08275 13.9422 2.31963C12.6461 2.16488 11.3406 2.16505 10.0445 2.32014C9.92822 2.08178 9.80478 1.84975 9.67412 1.62413L9.41449 1.17584L8.90333 1.25995C7.33547 1.51794 5.80717 1.99419 4.37748 2.66939L4.19 2.75793L4.07461 2.93019C1.23864 7.16437 0.46302 11.3053 0.838165 15.3924L0.868838 15.7266L1.13844 15.9264C2.81818 17.1714 4.68053 18.1233 6.68582 18.719L7.18892 18.8684L7.50166 18.4469C7.96179 17.8268 8.36504 17.1824 8.709 16.4944L8.71099 16.4904C10.8645 17.0471 13.128 17.0485 15.2821 16.4947C15.6261 17.1826 16.0293 17.8269 16.4892 18.4469L16.805 18.8725L17.3116 18.717C19.3056 18.105 21.1876 17.1751 22.8559 15.9238L23.1224 15.724L23.1528 15.3923C23.5873 10.6524 22.3579 6.53306 19.8947 2.90714L19.7759 2.73227L19.5833 2.64518C18.1437 1.99439 16.6386 1.51826 15.0686 1.25995ZM16.6074 10.7755L16.6074 10.7756C16.5934 11.6409 16.0212 12.1444 15.4783 12.1444C14.9297 12.1444 14.3493 11.6173 14.3493 10.7877C14.3493 9.94885 14.9378 9.41192 15.4783 9.41192C16.0471 9.41192 16.6209 9.93851 16.6074 10.7755ZM8.49373 12.1444C7.94513 12.1444 7.36471 11.6173 7.36471 10.7877C7.36471 9.94885 7.95323 9.41192 8.49373 9.41192C9.06038 9.41192 9.63892 9.93712 9.6417 10.7815C9.62517 11.6239 9.05462 12.1444 8.49373 12.1444Z"
-          strokeWidth="1.5"
-        />
-      </svg>
-    ),
-  },
-];
+
