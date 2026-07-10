@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode, type MouseEventHandler } from "react";
+import PixelBackground from "~/components/PixelBackground";
+
 
 const ROLES = [
   "Aspiring Developer",
@@ -45,26 +47,8 @@ export function Welcome() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100 font-sans">
-
-      {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-5 border-b border-slate-800/60 backdrop-blur-sm bg-slate-950/80">
-        <span className="text-sm font-semibold tracking-widest text-indigo-400 uppercase">
-          Portfolio
-        </span>
-        <ul className="flex gap-8 text-sm text-slate-400">
-          {["About", "Projects", "Essays", "Skills", "Contact"].map((item) => (
-            <li key={item}>
-              <a
-                href={`#${item.toLowerCase()}`}
-                className="hover:text-slate-100 transition-colors duration-200"
-              >
-                {item}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+    <main className="min-h-screen bg-slate-950 bg-[url(app/images/striped-gradient-bg.png)] bg-cover text-slate-100 font-sans">
+      <PixelBackground />
 
       {/* Hero */}
       <section
@@ -85,9 +69,9 @@ export function Welcome() {
         </p>
 
         {/* Name */}
-        <h1 className="relative text-5xl sm:text-7xl font-bold tracking-tight text-slate-50 mb-4">
-          Ashley Graham
-        </h1>
+          <h1 className="relative text-5xl sm:text-7xl zen-dots font-bold tracking-tight mb-4 bg-linear-to-b from-fuchsia-400 to-lime-100 bg-clip-text text-transparent">
+            Ashley Graham
+          </h1>
 
         {/* Animated role */}
         <div className="relative h-10 flex items-center justify-center mb-8">
