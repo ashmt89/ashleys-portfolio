@@ -38,7 +38,7 @@ const archiveProjects: ArchiveProject[] = [
     description:
       "A content-focused blog designed and developed as an exploration of modern frontend architecture, responsive design, and thoughtful user experience.",
     tags: ["Astro", "Islands Architecture"],
-    image: "app/images/projects/ashleys-blog.webp",
+    image: "/images/projects/ashleys-blog.webp",
     liveUrl: "https://ashleys-blog.netlify.app/",
     githubUrl: "",
     accent: "cyan",
@@ -52,7 +52,7 @@ const archiveProjects: ArchiveProject[] = [
     description:
       "A wireframe design for a doggy daycare and spa.",
     tags: ["Figma"],
-    image: "app/images/projects/posh-paws.png",
+    image: "/images/projects/posh-paws.png",
     liveUrl: "",
     githubUrl: "",
     accent: "violet",
@@ -60,13 +60,13 @@ const archiveProjects: ArchiveProject[] = [
 
   {
     number: "06",
-    title: "Component Library",
-    category: "UI System",
-    year: "2025",
+    title: "(add)",
+    category: "",
+    year: "",
     description:
-      "A collection of reusable interface components exploring consistency, accessibility, and visual systems.",
-    tags: ["React", "Tailwind CSS"],
-    image: "/images/projects/component-library.webp",
+      "",
+    tags: [""],
+    image: "",
     liveUrl: "",
     githubUrl: "",
     accent: "pink",
@@ -74,13 +74,13 @@ const archiveProjects: ArchiveProject[] = [
 
   {
     number: "07",
-    title: "Data Visualization",
-    category: "Experiment",
-    year: "2025",
+    title: "(add)",
+    category: "",
+    year: "",
     description:
-      "An experimental interface for turning structured data into an accessible visual experience.",
-    tags: ["JavaScript", "Data"],
-    image: "/images/projects/data-visualization.webp",
+      "",
+    tags: [""],
+    image: "",
     liveUrl: "",
     githubUrl: "",
     accent: "lime",

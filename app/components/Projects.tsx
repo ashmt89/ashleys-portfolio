@@ -45,7 +45,7 @@ const projects: Project[] = [
       "Responsive Design",
     ],
 
-    image: "app/images/projects/sunnydark.webp",
+    image: "/images/projects/sunnydark.webp",
 
     liveUrl: "https://www.sunnydark.com/",
 
@@ -68,7 +68,7 @@ const projects: Project[] = [
       "Database Design",
     ],
 
-    image: "app/images/projects/farmers-market.webp",
+    image: "/images/projects/farmers-market.webp",
 
     accent: "pink",
   },

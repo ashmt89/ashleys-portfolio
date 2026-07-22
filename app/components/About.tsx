@@ -132,7 +132,7 @@ function AboutVisual() {
 
 {/* Grayscale image */}
 <img
-  src="app/images/portrait.webp"
+  src="/images/portrait.webp"
   alt="Ashley Graham"
   className="
     h-full
