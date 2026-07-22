@@ -68,7 +68,7 @@ const projects: Project[] = [
       "Database Design",
     ],
 
-    image: "/images/projects/farmers-market.png",
+    image: "/images/projects/farmers-market.webp",
 
     accent: "pink",
   },
