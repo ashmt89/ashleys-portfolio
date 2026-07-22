@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 
 /* -------------------------------------------------------------------------- */
 /*                                  NAV DATA                                  */
@@ -23,8 +23,13 @@ const navItems = [
   },
   {
     label: "Experience",
-    type: "route",
-    to: "/experience",
+    type: "anchor",
+    to: "#experience",
+  },
+  {
+    label: "About",
+    type: "anchor",
+    to: "#about",
   },
   {
     label: "Blog",
@@ -285,13 +290,36 @@ function GlassRim() {
 export function Navigation() {
   const location = useLocation();
 
-  const [activeSection, setActiveSection] = useState("home");
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const isBlog =
+    location.pathname.startsWith("/blog");
 
-  /* ------------------------------------------------------------------------ */
-  /*                            NAVBAR SCROLL STATE                            */
-  /* ------------------------------------------------------------------------ */
+  const pageContext = isBlog
+    ? "Blog / Journal"
+    : null;
+
+  const [activeSection, setActiveSection] =
+    useState("home");
+
+  const [mobileOpen, setMobileOpen] =
+    useState(false);
+
+  const [scrolled, setScrolled] =
+    useState(false);
+
+  /* ---------------------------------------------------------------------- */
+  /* CLOSE MOBILE MENU ON LOCATION CHANGE                                  */
+  /* ---------------------------------------------------------------------- */
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [
+    location.pathname,
+    location.hash,
+  ]);
+
+  /* ---------------------------------------------------------------------- */
+  /* NAVBAR SCROLL STATE                                                    */
+  /* ---------------------------------------------------------------------- */
 
   useEffect(() => {
     const handleScroll = () => {
@@ -300,18 +328,44 @@ export function Navigation() {
 
     handleScroll();
 
-    window.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
+    window.addEventListener(
+      "scroll",
+      handleScroll,
+      {
+        passive: true,
+      }
+    );
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener(
+        "scroll",
+        handleScroll
+      );
     };
   }, []);
 
-  /* ------------------------------------------------------------------------ */
-  /*                         ACTIVE HOMEPAGE SECTION                          */
-  /* ------------------------------------------------------------------------ */
+  /* ---------------------------------------------------------------------- */
+  /* MOBILE BODY SCROLL LOCK                                                */
+  /* ---------------------------------------------------------------------- */
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const previousOverflow =
+      document.body.style.overflow;
+
+    document.body.style.overflow =
+      "hidden";
+
+    return () => {
+      document.body.style.overflow =
+        previousOverflow;
+    };
+  }, [mobileOpen]);
+
+  /* ---------------------------------------------------------------------- */
+  /* ACTIVE HOMEPAGE SECTION                                                */
+  /* ---------------------------------------------------------------------- */
 
   useEffect(() => {
     if (location.pathname !== "/") {
@@ -321,29 +375,36 @@ export function Navigation() {
     const sectionIds = [
       "skills",
       "projects",
+      "experience",
+      "about",
       "contact",
     ];
 
-    const observers: IntersectionObserver[] = [];
+    const observers:
+      IntersectionObserver[] = [];
 
     sectionIds.forEach((id) => {
-      const element = document.getElementById(id);
+      const element =
+        document.getElementById(id);
 
       if (!element) return;
 
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveSection(id);
+      const observer =
+        new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              setActiveSection(id);
+            }
+          },
+          {
+            rootMargin:
+              "-35% 0px -55% 0px",
+            threshold: 0,
           }
-        },
-        {
-          rootMargin: "-35% 0px -55% 0px",
-          threshold: 0,
-        }
-      );
+        );
 
       observer.observe(element);
+
       observers.push(observer);
     });
 
@@ -353,58 +414,89 @@ export function Navigation() {
       }
     };
 
-    window.addEventListener("scroll", handleHome, {
-      passive: true,
-    });
+    window.addEventListener(
+      "scroll",
+      handleHome,
+      {
+        passive: true,
+      }
+    );
 
     handleHome();
 
     return () => {
-      observers.forEach((observer) =>
-        observer.disconnect()
-      );
+      observers.forEach((observer) => {
+        observer.disconnect();
+      });
 
-      window.removeEventListener("scroll", handleHome);
+      window.removeEventListener(
+        "scroll",
+        handleHome
+      );
     };
   }, [location.pathname]);
 
-  /* ------------------------------------------------------------------------ */
-  /*                            ANCHOR NAVIGATION                             */
-  /* ------------------------------------------------------------------------ */
+  /* ---------------------------------------------------------------------- */
+  /* ANCHOR NAVIGATION                                                      */
+  /* ---------------------------------------------------------------------- */
 
   const handleAnchorClick = (
     id: string,
-    event?: React.MouseEvent<HTMLAnchorElement>
+    event?: MouseEvent<HTMLAnchorElement>
   ) => {
     setMobileOpen(false);
-
-    /*
-      If we're already on the homepage, smoothly scroll
-      to the requested section.
-    */
 
     if (location.pathname === "/") {
       event?.preventDefault();
 
-      const section = document.querySelector(id);
+      const section =
+        document.querySelector(id);
 
       section?.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
+    }
+  };
 
+  /* ---------------------------------------------------------------------- */
+  /* HASH SCROLL AFTER RETURNING HOME                                       */
+  /* ---------------------------------------------------------------------- */
+
+  useEffect(() => {
+    if (
+      location.pathname !== "/" ||
+      !location.hash
+    ) {
       return;
     }
 
-    /*
-      If we're on another route, href="/#section"
-      will return us to the homepage.
-    */
-  };
+    const timeout =
+      window.setTimeout(() => {
+        const section =
+          document.querySelector(
+            location.hash
+          );
 
-  /* ------------------------------------------------------------------------ */
-  /*                            ACTIVE ITEM LOGIC                             */
-  /* ------------------------------------------------------------------------ */
+        if (!section) return;
+
+        section.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 150);
+
+    return () => {
+      window.clearTimeout(timeout);
+    };
+  }, [
+    location.pathname,
+    location.hash,
+  ]);
+
+  /* ---------------------------------------------------------------------- */
+  /* ACTIVE ITEM LOGIC                                                      */
+  /* ---------------------------------------------------------------------- */
 
   const isItemActive = (
     item: (typeof navItems)[number]
@@ -412,7 +504,8 @@ export function Navigation() {
     if (item.type === "anchor") {
       return (
         location.pathname === "/" &&
-        activeSection === item.to.replace("#", "")
+        activeSection ===
+          item.to.replace("#", "")
       );
     }
 
@@ -423,7 +516,13 @@ export function Navigation() {
       );
     }
 
-    return location.pathname.startsWith(item.to);
+    if (item.to === "/blog") {
+      return location.pathname.startsWith(
+        "/blog"
+      );
+    }
+
+    return false;
   };
 
   return (
@@ -456,29 +555,110 @@ export function Navigation() {
         >
           {/* Logo */}
 
-          <NavLink
-            to="/"
-            aria-label="Ashley Graham — Home"
-            className="
-              pointer-events-auto
+          <div
+  className="
+    pointer-events-auto
 
-              relative z-20
+    relative
+    z-20
 
-              text-[1.45rem]
-              font-black
-              tracking-[-0.06em]
+    flex
+    items-center
+    gap-4
+  "
+>
+  <NavLink
+    to="/"
+    aria-label="Ashley Graham — Home"
+    className="
+      text-[1.45rem]
+      font-black
+      tracking-[-0.06em]
 
-              text-[#ff4ac1]
+      text-[#ff4ac1]
 
-              transition-all duration-300
+      transition-all
+      duration-300
 
-              hover:text-[#ff75d0]
+      hover:text-[#ff75d0]
 
-              hover:drop-shadow-[0_0_12px_rgba(255,45,163,0.5)]
-            "
-          >
-            AG.
-          </NavLink>
+      hover:drop-shadow-[
+        0_0_12px_rgba(255,45,163,0.5)
+      ]
+    "
+  >
+    AG.
+  </NavLink>
+
+  {/* Page context */}
+
+  {pageContext && (
+    <div
+      className="
+        hidden
+        items-center
+        gap-3
+
+        xl:flex
+      "
+    >
+      {/* Light trail */}
+
+      <span
+        aria-hidden="true"
+        className="
+          h-px
+          w-7
+
+          bg-gradient-to-r
+          from-[#ff2da3]/45
+          via-[#8c52ff]/30
+          to-transparent
+        "
+      />
+
+      {/* Context */}
+
+      <div
+        className="
+          flex
+          items-center
+          gap-2
+        "
+      >
+        <span
+          className="
+            h-[4px]
+            w-[4px]
+
+            rounded-full
+
+            bg-[#58d7ff]/70
+
+            shadow-[
+              0_0_6px_rgba(88,215,255,0.45)
+            ]
+          "
+        />
+
+        <span
+          className="
+            font-mono
+
+            text-[0.43rem]
+            font-medium
+            uppercase
+            tracking-[0.17em]
+
+            text-white/22
+          "
+        >
+          {pageContext}
+        </span>
+      </div>
+    </div>
+  )}
+</div>
 
           {/* Center Navigation */}
           <nav
@@ -881,6 +1061,9 @@ export function Navigation() {
                 <div className="relative z-10 flex items-center gap-1">
                   {navItems.map((item) => {
                     const active = isItemActive(item);
+                    const isBlogItem =
+                      item.type === "route" &&
+                      item.to === "/blog";
 
                     const sharedClasses = `
                     group
@@ -918,6 +1101,28 @@ export function Navigation() {
                             inset_8px_0_20px_rgba(88,215,255,0.025),
                             0_3px_12px_rgba(0,0,0,0.05)
                           ]
+
+                          ${
+                            isBlogItem
+                              ? `
+                                after:absolute
+                                after:bottom-[1px]
+                                after:left-[35%]
+                                after:right-[35%]
+
+                                after:h-px
+
+                                after:bg-gradient-to-r
+                                after:from-transparent
+                                after:via-[#ff2da3]/45
+                                after:to-transparent
+
+                                after:shadow-[
+                                  0_0_7px_rgba(255,45,163,0.25)
+                                ]
+                              `
+                              : ""
+                          }
                         `
                         : `
                           text-white/60
@@ -1107,20 +1312,71 @@ export function Navigation() {
             px-5
           "
         >
-          <NavLink
-            to="/"
-            onClick={() => setMobileOpen(false)}
-            className="
-              text-xl
-              font-black
-              tracking-[-0.06em]
-              text-[#ff4ac1]
+          {/* ---------------------------------------------------------- */}
+          {/* LEFT — BRAND + PAGE CONTEXT                                */}
+          {/* ---------------------------------------------------------- */}
 
-              drop-shadow-[0_0_12px_rgba(255,45,163,0.25)]
+          <div
+            className="
+              flex
+              items-center
+              gap-3
             "
           >
-            AG.
-          </NavLink>
+            <NavLink
+              to="/"
+              onClick={() => setMobileOpen(false)}
+              aria-label="Ashley Graham — Home"
+              className="
+                text-xl
+                font-black
+                tracking-[-0.06em]
+
+                text-[#ff4ac1]
+
+                drop-shadow-[
+                  0_0_12px_rgba(255,45,163,0.25)
+                ]
+              "
+            >
+              AG.
+            </NavLink>
+
+            {isBlog && (
+              <>
+                <span
+                  aria-hidden="true"
+                  className="
+                    h-px
+                    w-4
+
+                    bg-gradient-to-r
+                    from-[#ff2da3]/40
+                    to-transparent
+                  "
+                />
+
+                <span
+                  className="
+                    font-mono
+
+                    text-[0.4rem]
+                    font-medium
+                    uppercase
+                    tracking-[0.16em]
+
+                    text-white/20
+                  "
+                >
+                  Journal
+                </span>
+              </>
+            )}
+          </div>
+
+          {/* ---------------------------------------------------------- */}
+          {/* RIGHT — MENU BUTTON                                        */}
+          {/* ---------------------------------------------------------- */}
 
           <button
             type="button"
@@ -1135,6 +1391,7 @@ export function Navigation() {
             }
             className="
               flex h-11 w-11
+              shrink-0
               items-center justify-center
 
               rounded-full

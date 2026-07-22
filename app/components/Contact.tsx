@@ -16,7 +16,7 @@ const contactLinks = [
   {
     label: "Email",
     value: "Say hello",
-    href: "mailto:you@example.com",
+    href: "mailto:ashleygraham11423@gmail.com",
     icon: Mail,
     accent: "lime",
   },
@@ -272,7 +272,7 @@ function ContactLink({
 function ContactPortal() {
   return (
     <a
-      href="mailto:you@example.com"
+      href="mailto:ashleygraham11423@gmail.com"
       className="
         group/portal
         relative
@@ -671,7 +671,7 @@ function ContactPortal() {
                 group-hover/portal:text-[#d8ff47]/80
               "
             >
-              you@example.com
+              ashleygraham11423@gmail.com
             </span>
 
             <span
