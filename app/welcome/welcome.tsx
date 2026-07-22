@@ -2,6 +2,12 @@ import {
   useEffect,
   useState,
 } from "react";
+import { SectionMarker } from "~/components/SectionMarker";
+import { Skills } from "~/components/Skills";
+import { Projects } from "~/components/Projects";
+import { ExperienceEducation } from "~/components/ExperienceEducation";
+import { About } from "~/components/About";
+import { Contact } from "~/components/Contact";
 
 /* -------------------------------------------------------------------------- */
 /*                              TYPEWRITER DATA                               */
@@ -1141,35 +1147,12 @@ export function Welcome() {
             2xl:right-24
           "
         >
-          <div
-            className="
-              flex
-              items-center
-              gap-4
 
-              font-mono
-              text-[0.6rem]
-              uppercase
-              tracking-[0.18em]
-              text-white/25
-            "
-          >
-            <span className="text-[#58d7ff]/50">
-              01
-            </span>
-
-            <span
-              className="
-                h-px
-                w-8
-                bg-white/10
-              "
+            <SectionMarker
+              number="01"
+              label="Creative Development"
+              accent="cyan"
             />
-
-            <span>
-              Creative development
-            </span>
-          </div>
 
           <a
             href="#skills"
@@ -1209,6 +1192,12 @@ export function Welcome() {
           </a>
         </div>
       </section>
+            
+      <Skills />
+      <Projects />
+      <ExperienceEducation />
+      <About />
+      <Contact />
     </main>
   );
 }

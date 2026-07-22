@@ -687,14 +687,14 @@ export function Navigation() {
                     z-[2]
                     left-[3%]
                     right-[3%]
-                    top-0
-                    h-[45%]
-                    rounded-t-full
+                    bottom-0
+                    h-[55%]
+                    rounded-b-full
                     opacity-100
                   "
                   style={{
                     background:
-                      "linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.055) 38%, rgba(255,255,255,0) 100%)",
+                      "linear-gradient(360deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.055) 38%, rgba(255,255,255,0) 100%)",
                     maskImage:
                       "linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%)",
                     WebkitMaskImage:
@@ -714,7 +714,7 @@ export function Navigation() {
                     top-0
                     h-[50%]
                     rounded-t-full
-                    opacity-50
+                    opacity-20
                     border-t
                     border-l
                     border-r
@@ -742,7 +742,7 @@ export function Navigation() {
                     bottom-0
                     h-[50%]
                     rounded-b-full
-                    opacity-50
+                    opacity-20
                     border-b
                     border-l
                     border-r
