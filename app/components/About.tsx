@@ -712,11 +712,13 @@ export function About() {
         {/* SECTION HEADER                                              */}
         {/* ============================================================ */}
 
+{/*
         <SectionMarker
           number="05"
           label="About"
           accent="cyan"
         />
+*/}
 
         <div
           className="

@@ -931,11 +931,13 @@ export function Contact() {
         {/* SECTION MARKER                                             */}
         {/* ============================================================ */}
 
+{/*
         <SectionMarker
           number="06"
           label="Say Hello"
           accent="lime"
         />
+*/}
 
         {/* ============================================================ */}
         {/* HERO HEADING                                               */}

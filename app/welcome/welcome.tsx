@@ -1134,7 +1134,7 @@ export function Welcome() {
             hidden
 
             items-center
-            justify-between
+            justify-end
 
             lg:flex
             lg:left-12
@@ -1148,11 +1148,13 @@ export function Welcome() {
           "
         >
 
+            {/*
             <SectionMarker
               number="01"
               label="Creative Development"
               accent="cyan"
             />
+            */}
 
           <a
             href="#skills"

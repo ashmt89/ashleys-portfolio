@@ -47,6 +47,7 @@ const navItems = [
 /*                                  ICONS                                     */
 /* -------------------------------------------------------------------------- */
 
+/*
 function SunIcon() {
   return (
     <svg
@@ -70,6 +71,7 @@ function SunIcon() {
     </svg>
   );
 }
+*/
 
 function MenuIcon({ open }: { open: boolean }) {
   return (
@@ -1223,7 +1225,9 @@ export function Navigation() {
             </div>
           </nav>
 
-          {/* Right Utility Buttons */}
+          {/*
+
+          {/* Right Utility Buttons 
 
           <div
             className="
@@ -1288,10 +1292,14 @@ export function Navigation() {
               />
 
               <span className="relative z-10">
+                
                 <SunIcon />
+                
               </span>
             </button>
           </div>
+
+          */}
         </div>
       </header>
 

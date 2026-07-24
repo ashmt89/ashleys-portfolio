@@ -104,14 +104,12 @@ const experiences: Experience[] = [
     endDate: "Present",
 
     description:
-      "Briefly describe your role and focus on the responsibilities and experiences most relevant to the professional story you want your portfolio to tell.",
+      "",
 
     highlights: [
-      "Describe an important responsibility, accomplishment, or contribution.",
-      "Highlight collaboration, problem solving, leadership, or technology experience.",
-      "Include a measurable result when you have one.",
+  
     ],
-
+    
     tags: [
       "Organization",
       "Problem Solving",
@@ -133,11 +131,10 @@ const experiences: Experience[] = [
     endDate: "2022",
 
     description:
-      "A concise description of what you did and how the experience contributed to skills that are relevant to your current direction. managed people..problem solving",
+      "",
 
     highlights: [
-      "A meaningful responsibility or accomplishment.",
-      "A transferable skill you developed through this role. project management, leadership, communication, etc.",
+
     ],
 
     tags: [
@@ -152,14 +149,16 @@ const experiences: Experience[] = [
   {
     id: "earlier-position",
 
-    title: "Earlier Experience",
-    organization: "Organization Name",
+    title: "Administrative Specialist",
+    organization: "University of South Florida",
 
-    startDate: "2020",
-    endDate: "2022",
+    location: "Tampa, Florida",
+
+    startDate: "2014",
+    endDate: "2019",
 
     description:
-      "Earlier experience can be kept concise while still showing the progression of your professional journey.",
+      "",
 
     tags: [
       "Customer Experience",
@@ -2100,12 +2099,13 @@ export function ExperienceEducation() {
             lg:mb-20
           "
         >
+{/*
           <SectionMarker
             number="04"
             label="My Journey"
             accent="pink"
           />
-
+*/}
           <div className="mt-7">
 
             <p

@@ -37,7 +37,7 @@ const projects: Project[] = [
     category: "Web Development",
 
     description:
-      "A project I am currently working on for an artist who primarily creates and sells masks.",
+      "A project I am currently working on for an artist's portfolio and store.",
 
     tags: [
       "React Router",
@@ -60,7 +60,7 @@ const projects: Project[] = [
     category: "Full-Stack Development",
 
     description:
-      "A database-driven web project focused on organizing information, building intuitive interfaces, and connecting frontend experiences with structured data.",
+      "A web project I completed for my Web Design Technologies course for a farmer's market.",
 
     tags: [
       "JavaScript",
@@ -1030,11 +1030,13 @@ export function Projects() {
         {/* -------------------------------------------------------------- */}
 
         <div className="mb-16 lg:mb-20">
+{/*
           <SectionMarker
             number="03"
             label="Selected Work"
             accent="violet"
           />
+*/}
 
           <div className="mt-7">
             <p

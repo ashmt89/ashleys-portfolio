@@ -791,11 +791,13 @@ export function Skills() {
         </div>
       </div>
 
+{/*
       <SectionMarker
         number="02"
         label="Technical Toolkit"
         accent="cyan"
       />
+*/}
     </section>
   );
 }

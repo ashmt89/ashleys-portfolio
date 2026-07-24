@@ -15,7 +15,6 @@ type Post = {
   date: string;
   title: string;
   excerpt: string;
-  tags: string[];
   slug: string;
   accent: Accent;
 };
@@ -34,11 +33,6 @@ const posts: Post[] = [
     excerpt:
       "My background, goals, and path toward a career in full-stack web development.",
 
-    tags: [
-      "Career",
-      "Education",
-    ],
-
     slug:
       "biography-and-career-goals",
 
@@ -54,11 +48,6 @@ const posts: Post[] = [
     excerpt:
       "A project management plan for developing a software-tracking database at the University of South Florida.",
 
-    tags: [
-      "Project Management",
-      "Database",
-    ],
-
     slug:
       "project-management-plan",
 
@@ -66,23 +55,48 @@ const posts: Post[] = [
   },
 
   {
-    date: "APR, 2026",
+    date: "JUN, 2026",
 
     title:
-      "What Web Development Looks Like in the Age of AI",
+      "Ethical Case Study Analysis: AI Governance in Modern Society",
 
     excerpt:
-      "AI isn't replacing developers — it's changing what we spend our time on and how we approach development.",
-
-    tags: [
-      "AI",
-      "Web Dev",
-    ],
+      "A case study exploring the ethical and societal implications of AI and how it should be governed.",
 
     slug:
-      "web-dev-and-ai",
+      "ethical-case-study",
 
     accent: "violet",
+  },
+
+    {
+    date: "JUL, 2026",
+
+    title:
+      "Information Policy/Technology in the News",
+
+    excerpt:
+      "",
+
+    slug:
+      "",
+
+    accent: "pink",
+  },
+
+  {
+    date: "JUL, 2026",
+
+    title:
+      "BSIS Program Review",
+
+    excerpt:
+      "A review of my BSIS coursework, experiences, and the skills I developed throughout the program.",
+
+    slug:
+      "bsis-program-review",
+
+    accent: "cyan",
   },
 ];
 
@@ -264,43 +278,6 @@ function PostRow({
           sm:justify-between
         "
       >
-        {/* Tags */}
-
-        <div
-          className="
-            flex
-            flex-wrap
-            gap-2
-          "
-        >
-          {post.tags.map(
-            (tag) => (
-              <span
-                key={tag}
-                className="
-                  rounded-full
-
-                  border
-                  border-white/[0.1]
-
-                  px-3
-                  py-1.5
-
-                  font-mono
-
-                  text-[0.55rem]
-                  font-semibold
-                  uppercase
-                  tracking-[0.12em]
-
-                  text-white/35
-                "
-              >
-                {tag}
-              </span>
-            )
-          )}
-        </div>
 
         {/* Read link */}
 
