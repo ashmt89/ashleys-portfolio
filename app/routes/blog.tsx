@@ -76,10 +76,10 @@ const posts: Post[] = [
       "Information Policy/Technology in the News",
 
     excerpt:
-      "",
+      "A discussion of a current information technology event or legislative action in the news.",
 
     slug:
-      "",
+      "information-policy-technology",
 
     accent: "pink",
   },

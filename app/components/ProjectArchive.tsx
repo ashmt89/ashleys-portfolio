@@ -31,7 +31,7 @@ type ArchiveProject = {
 
 const archiveProjects: ArchiveProject[] = [
   {
-    number: "04",
+    number: "01",
     title: "Ashley's Blog",
     category: "Web Development",
     year: "2024",
@@ -45,7 +45,7 @@ const archiveProjects: ArchiveProject[] = [
   },
 
   {
-    number: "05",
+    number: "02",
     title: "Posh Paws Retreat",
     category: "Wireframe Design",
     year: "2024",
@@ -59,8 +59,8 @@ const archiveProjects: ArchiveProject[] = [
   },
 
   {
-    number: "06",
-    title: "(add)",
+    number: "03",
+    title: "",
     category: "",
     year: "",
     description:
@@ -73,8 +73,8 @@ const archiveProjects: ArchiveProject[] = [
   },
 
   {
-    number: "07",
-    title: "(add)",
+    number: "04",
+    title: "",
     category: "",
     year: "",
     description:
